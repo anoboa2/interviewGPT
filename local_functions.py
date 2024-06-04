@@ -1,15 +1,14 @@
 import os
 import streamlit as st
 import random
-from langchain.prompts import ChatPromptTemplate
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.document_loaders import TextLoader, PyPDFLoader
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
-from langchain.schema.output_parser import StrOutputParser
-from langchain.schema.runnable import RunnablePassthrough
-from langchain.prompts.chat import SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
+from langchain_text_splitters import CharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_SECRET"]
 
@@ -24,7 +23,7 @@ def InitializeVectorStore():
   documents = [document for sublist in documents for document in sublist]
 
   # Create a vector store for the documents
-  db = Chroma.from_documents(documents, OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY))
+  db = Chroma.from_documents(documents, OpenAIEmbeddings(api_key=OPENAI_API_KEY))
   retriever = db.as_retriever()
   return retriever
 

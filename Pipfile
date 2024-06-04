@@ -4,13 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-langchain = "*"
 openai = "==0.28.1"
 chromadb = "*"
 tiktoken = "*"
 pypdf = "*"
 pydantic = "*"
 streamlit = "*"
+langchain = "*"
+langchain-openai = "*"
+jq = "*"
 
 [dev-packages]
 
